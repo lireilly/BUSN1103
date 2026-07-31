@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co-op Company Research with MarketLine Advantage — Northeastern University</title>
+<meta name="description" content="A 19-minute guided tutorial for Northeastern sophomores on using MarketLine Advantage to research a co-op employer, identify in-demand skills, and find an open co-op position.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* === Reset & Base === */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  /* Northeastern-branded palette, adjusted to meet WCAG 2.2 Level AAA
+     (7:1 contrast for normal text, 4.5:1 for large text) against the
+     backgrounds each color is actually used on. */
+  --navy:#1b3a7a;
+  --navy-dark:#0d2253;
+  --navy-mid:#2d5299;
+  --amber:#74450a;
+  --amber-bg:#faeeda;
+  --amber-mid:#fac876;
+  --teal:#0d5c48;
+  --teal-bg:#e1f5ee;
+  --bg:#f8f7f4;
+  --surface:#ffffff;
+  --surface-2:#f2efe9;
+  --border:#ddd9d1;
+  --border-strong:#bab5ac;
+  --text:#1a1a1a;
+  --text-mid:#383838;
+  --text-muted:#575766;
+  --green-bg:#eaf3de;
+  --green:#315a0e;
+  --red-bg:#fcebeb;
+  --red:#791f1f;
+  --blue-bg:#e6f1fb;
+  --blue-text:#0c447c;
+  --focus:#74450a;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  --r:8px;
+  --r-lg:14px;
+}
+
+body{
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.7;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+}
+
+/* === Accessibility === */
+.sr-only{
+  position:absolute;clip:rect(0,0,0,0);
+  width:1px;height:1px;overflow:hidden;
+  white-space:nowrap;border:0;
+}
+
+.skip-link{
+  position:absolute;top:-80px;left:16px;z-index:9999;
+  background:var(--navy);color:#fff;
+  padding:10px 20px;border-radius:var(--r);
+  font-family:var(--sans);font-size:14px;font-weight:600;
+  text-decoration:none;
+  transition:top .2s;
+}
+.skip-link:focus{top:12px;}
+
+/* Enhanced focus appearance (WCAG 2.2 SC 2.4.13, AAA): thick, high-contrast,
+   offset outline visible against every background used on this page. */
+*:focus-visible{
+  outline:3px solid var(--focus);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+/* === Layout === */
+#app{display:flex;flex-direction:column;min-height:100vh;}
+
+/* === Header === */
+.site-header{
+  background:var(--navy);
+  color:#fff;
+  padding:14px 24px 16px;
+  position:sticky;top:0;z-index:100;
+  border-bottom:2px solid var(--amber-mid);
+}
+.header-inner{max-width:820px;margin:0 auto;}
+.header-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+  flex-wrap:wrap;gap:8px;
+}
+.site-title{
+  font-family:var(--serif);font-size:14px;font-weight:700;
+  color:var(--amber-mid);letter-spacing:.02em;
+}
+.header-meta{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-size:13px;
+  color:#ffffff;
+}
+.step-badge{
+  background:rgba(255,255,255,.16);
+  padding:3px 10px;border-radius:20px;
+  font-weight:600;white-space:nowrap;
+}
+.time-remaining{white-space:nowrap;}
+.progress-track{
+  height:6px;background:rgba(255,255,255,.22);
+  border-radius:3px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--amber-mid),#f5e090);
+  border-radius:3px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+
+/* === Main === */
+main{flex:1;padding:32px 24px 24px;max-width:820px;width:100%;margin:0 auto;}
+
+/* === Step panels === */
+.step-panel{animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+.step-icon{font-size:36px;margin-bottom:14px;display:block;line-height:1;}
+.step-title{
+  font-family:var(--serif);font-size:26px;font-weight:700;
+  color:var(--navy);line-height:1.3;margin-bottom:6px;
+}
+.step-subtitle{
+  font-size:17px;color:var(--text-muted);
+  font-weight:400;margin-bottom:28px;line-height:1.5;
+}
+
+/* === Prose === */
+.prose{font-size:16px;line-height:1.75;color:var(--text-mid);}
+.prose p{margin-bottom:16px;}
+.prose strong{font-weight:600;color:var(--text);}
+
+.section-heading{
+  font-family:var(--serif);font-size:17px;color:var(--navy);
+  margin:24px 0 12px;
+}
+
+/* === Cards === */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:22px 24px;
+  margin-bottom:20px;
+}
+.card-title{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  color:var(--navy);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.card-title::before{
+  content:'';display:block;
+  width:4px;height:20px;flex-shrink:0;
+  background:var(--amber-mid);border-radius:2px;
+}
+
+/* === Alert boxes === */
+.info-box,.tip-box,.success-box{
+  border-left:4px solid;
+  border-radius:0 var(--r) var(--r) 0;
+  padding:14px 18px;margin:18px 0;
+  font-size:15px;line-height:1.65;
+}
+.info-box{background:var(--blue-bg);border-color:var(--navy-mid);}
+.tip-box{background:var(--amber-bg);border-color:var(--amber);}
+.success-box{background:var(--green-bg);border-color:var(--teal);}
+.box-label{
+  display:block;font-weight:700;font-size:12px;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:5px;
+}
+.info-box .box-label{color:var(--blue-text);}
+.tip-box .box-label{color:var(--amber);}
+.success-box .box-label{color:var(--teal);}
+
+/* === Access card (MarketLine login) === */
+.access-card{
+  background:var(--surface);
+  border:2px solid var(--navy);
+  border-radius:var(--r-lg);
+  padding:20px 24px;margin:18px 0;
+}
+.access-card-title{
+  font-family:var(--serif);font-weight:700;color:var(--navy);
+  font-size:17px;margin-bottom:8px;
+}
+.access-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--navy);color:#fff;
+  padding:13px 24px;border-radius:var(--r);
+  font-family:var(--sans);font-weight:700;font-size:15px;
+  text-decoration:none;margin-top:12px;
+  border:2px solid var(--navy);
+}
+.access-btn:hover{background:var(--navy-dark);border-color:var(--navy-dark);}
+.access-btn .arrow{font-size:14px;}
+.access-note{font-size:13px;color:var(--text-muted);margin-top:12px;line-height:1.6;}
+
+/* === Numbered list === */
+.num-list{list-style:none;padding:0;}
+.num-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:12px 0;border-bottom:1px solid var(--surface-2);
+  font-size:15px;line-height:1.65;
+}
+.num-list li:last-child{border-bottom:none;}
+.num{
+  flex-shrink:0;width:26px;height:26px;
+  background:var(--navy);color:#fff;
+  border-radius:50%;display:flex;
+  align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;margin-top:2px;
+}
+
+/* === Feature grid === */
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;margin:20px 0;
+}
+.feature-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:16px;font-size:14px;
+  line-height:1.55;color:var(--text-mid);
+}
+.feature-card .f-icon{
+  font-size:22px;margin-bottom:8px;display:block;
+}
+.feature-card .f-title{
+  font-weight:700;font-size:13px;
+  text-transform:uppercase;letter-spacing:.05em;
+  color:var(--navy);margin-bottom:4px;
+}
+
+/* === Checklist === */
+.checklist{list-style:none;padding:0;margin:14px 0;}
+.checklist li{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--surface-2);
+  font-size:15px;line-height:1.6;color:var(--text-mid);
+}
+.checklist li:last-child{border-bottom:none;}
+.ch-icon{
+  flex-shrink:0;margin-top:2px;font-size:19px;
+  width:24px;text-align:center;
+}
+.checklist a{color:var(--navy-mid);font-weight:600;}
+.checklist a:hover{color:var(--navy-dark);}
+
+/* === Hiring-clue chain === */
+.clue-chain{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:8px;background:var(--surface-2);
+  border-radius:var(--r);padding:14px 18px;margin:16px 0;
+}
+.chain-node{
+  background:var(--navy);color:#fff;
+  padding:5px 14px;border-radius:5px;
+  font-family:var(--sans);font-size:13px;font-weight:600;
+}
+.chain-arrow{color:var(--amber);font-size:18px;font-weight:700;}
+
+/* === Reflections === */
+.reflections{margin-top:36px;padding-top:28px;border-top:2px solid var(--surface-2);}
+.reflections-heading{
+  font-family:var(--serif);font-size:20px;
+  color:var(--navy);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.reflections-heading::after{
+  content:'';flex:1;height:2px;background:var(--amber-mid);
+}
+.q-block{margin-bottom:22px;}
+label.q-label{
+  display:block;font-weight:600;font-size:15px;
+  color:var(--text);margin-bottom:5px;line-height:1.5;
+  cursor:pointer;
+}
+.q-help{
+  font-size:13px;color:var(--text-muted);
+  margin-bottom:8px;font-style:italic;line-height:1.5;
+}
+textarea.q-input{
+  width:100%;min-height:96px;
+  padding:10px 14px;
+  border:2px solid var(--border-strong);
+  border-radius:var(--r);
+  font-family:var(--sans);font-size:15px;
+  line-height:1.65;color:var(--text);
+  background:var(--surface);resize:vertical;
+  transition:border-color .2s;
+}
+textarea.q-input:focus{border-color:var(--navy);}
+textarea.q-input::placeholder{color:#6b6b7a;font-style:italic;}
+
+/* === Summary === */
+.summary-section{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  overflow:hidden;margin-bottom:22px;
+}
+.summary-hdr{
+  background:var(--surface-2);padding:12px 20px;
+  font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--navy);border-bottom:1px solid var(--border);
+}
+.summary-qa{padding:14px 20px;border-bottom:1px solid var(--surface-2);}
+.summary-qa:last-child{border-bottom:none;}
+.summary-q{
+  font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--text-muted);margin-bottom:5px;
+}
+.summary-a{font-size:15px;line-height:1.65;white-space:pre-wrap;}
+.summary-empty{font-style:italic;color:var(--text-muted);}
+
+/* === Nav bar === */
+.nav-bar{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:14px 24px;
+  box-shadow:0 -3px 16px rgba(0,0,0,.05);
+}
+.nav-inner{
+  max-width:820px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:var(--r);
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  cursor:pointer;border:2px solid transparent;
+  transition:background .2s,border-color .2s,transform .1s;
+  text-decoration:none;line-height:1;
+}
+.nav-btn:active{transform:scale(.97);}
+.nav-primary{background:var(--navy);color:#fff;}
+.nav-primary:hover{background:var(--navy-dark);}
+.nav-secondary{background:transparent;color:var(--navy);border-color:var(--border-strong);}
+.nav-secondary:hover{border-color:var(--navy);background:var(--bg);}
+.nav-secondary:disabled{opacity:.55;cursor:not-allowed;pointer-events:none;}
+.nav-center{text-align:center;}
+.nav-step-name{font-size:12px;color:var(--text-muted);margin-top:3px;}
+.nav-step-num{font-size:13px;font-weight:700;color:var(--text-muted);}
+
+/* === Responsive === */
+@media(max-width:600px){
+  .step-title{font-size:21px;}
+  main{padding:20px 16px 20px;}
+  .nav-btn{padding:10px 16px;font-size:14px;}
+  .nav-step-name{display:none;}
+}
+
+@media print{
+  .site-header,.nav-bar,.skip-link,.no-print{display:none;}
+  body{background:#fff;}
+  main{padding:0;max-width:100%;}
+  .step-panel{animation:none;}
+  a[href]::after{content:none;}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div id="app">
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="site-title">MarketLine Advantage — Co-op Research Tutorial</div>
+      <div class="header-meta">
+        <span class="step-badge" id="step-badge" aria-live="polite">Step 1 of 6</span>
+        <span class="time-remaining" id="time-remaining" aria-live="polite">~19 min remaining</span>
+      </div>
+    </div>
+    <div role="progressbar" aria-label="Tutorial progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-wrapper">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main id="main-content" tabindex="-1">
+
+<!-- ======= STEP 0: WELCOME ======= -->
+<section id="step-0" class="step-panel" aria-labelledby="s0-title">
+  <h2 class="sr-only">Welcome — Tutorial Introduction</h2>
+  <span class="step-icon" aria-hidden="true">🏛️</span>
+  <h1 class="step-title" id="s0-title">Research Like a Co-op Pro</h1>
+  <p class="step-subtitle">A 19-minute walkthrough of MarketLine Advantage to help you research a company before you apply for a co-op</p>
+
+  <div class="prose">
+    <p>The strongest co-op candidates already know what a company does, who it competes with, and what it's trying to accomplish next — before they ever submit an application. That kind of preparation used to mean hours of digging through news articles. Now it takes one database.</p>
+    <p>This tutorial walks you through <strong>MarketLine Advantage</strong>, a business intelligence database available free through the Northeastern University Library. By the end, you'll have real notes on a real company — ready to use in your co-op application, cover letter, or interview.</p>
+  </div>
+
+  <div class="access-card">
+    <div class="access-card-title">Log in to MarketLine Advantage</div>
+    <p style="font-size:15px;line-height:1.65;color:var(--text-mid);">Use the button below to open MarketLine Advantage through the Northeastern Library's proxy login. Sign in with your <strong>myNortheastern username and password</strong> when prompted.</p>
+    <a class="access-btn" href="https://link.ezproxy.neu.edu/login?url=https://new.marketline.com/Account/IPAccessLogin" target="_blank" rel="noopener noreferrer">
+      Log in to MarketLine Advantage <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+    </a>
+    <p class="access-note">Keep this tab open — you'll switch back and forth as you work through the tutorial. If the button doesn't work, go to <span style="font-weight:600;">library.northeastern.edu</span> and search "MarketLine Advantage" in the A–Z Database list.</p>
+  </div>
+
+  <h3 class="section-heading">What you'll do</h3>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="f-icon" aria-hidden="true">🔍</span>
+      <div class="f-title">Find your company</div>
+      Search MarketLine and open a full company profile
+    </div>
+    <div class="feature-card">
+      <span class="f-icon" aria-hidden="true">🧭</span>
+      <div class="f-title">Spot hiring clues</div>
+      Use the profile to figure out what this company is likely looking for in a hire
+    </div>
+    <div class="feature-card">
+      <span class="f-icon" aria-hidden="true">💼</span>
+      <div class="f-title">Find a co-op</div>
+      Search NUworks and the company's own site for an open co-op position
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <span class="box-label">How this works</span>
+    Every step ends with a short reflection. Answer based on the actual company you're researching — your answers are collected into a personal summary at the end that you can copy straight into your notes.
+  </div>
+</section>
+
+<!-- ======= STEP 1: FIND YOUR COMPANY ======= -->
+<section id="step-1" class="step-panel" aria-labelledby="s1-title" hidden>
+  <h2 class="sr-only">Step 1 — Finding your target company</h2>
+  <span class="step-icon" aria-hidden="true">🔍</span>
+  <h1 class="step-title" id="s1-title">Finding Your Target Company</h1>
+  <p class="step-subtitle">Search MarketLine for a company you'd consider for a co-op</p>
+
+  <div class="prose">
+    <p>Pick a company you're genuinely curious about — ideally one you could see yourself applying to for a co-op. The more specific your target, the more useful your notes will be later in this tutorial.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">How to search for a company on MarketLine</div>
+    <ol class="num-list">
+      <li><span class="num" aria-hidden="true">1</span><div>From the MarketLine Advantage homepage, click the <strong>Companies</strong> tab, or type the company name directly into the main search bar.</div></li>
+      <li><span class="num" aria-hidden="true">2</span><div>Use the company's official name for the best results. MarketLine auto-suggests matches as you type.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div>Choose the correct entry from the results list — check the headquarters country and industry to make sure it's the right one, since some companies share similar names.</div></li>
+      <li><span class="num" aria-hidden="true">4</span><div>Click the company name to open its full profile page.</div></li>
+    </ol>
+  </div>
+
+  <div class="info-box">
+    <span class="box-label">Subsidiaries and parent companies</span>
+    If the company you want is part of a larger corporation, try searching the <strong>parent company</strong> name too. Some subsidiaries have their own profile — others don't.
+  </div>
+
+  <div class="reflections">
+    <h3 class="reflections-heading">Reflection questions</h3>
+    <div class="q-block">
+      <label class="q-label" for="s1q0">1. What company are you researching, and why does it interest you as a possible co-op employer?</label>
+      <p class="q-help">Be specific: name the company and describe what draws you to it — its industry, mission, reputation, or a product you use.</p>
+      <textarea class="q-input" id="s1q0" data-qid="s1q0" rows="4"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="s1q1">2. What type of co-op role are you hoping to find there (job title, team, or department)?</label>
+      <p class="q-help">Think about the title, team, or department that interests you — this will guide how you read the rest of the profile.</p>
+      <textarea class="q-input" id="s1q1" data-qid="s1q1" rows="3"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ======= STEP 2: COMPANY PROFILE ======= -->
+<section id="step-2" class="step-panel" aria-labelledby="s2-title" hidden>
+  <h2 class="sr-only">Step 2 — Reading the company profile</h2>
+  <span class="step-icon" aria-hidden="true">📊</span>
+  <h1 class="step-title" id="s2-title">Reading the Company Profile</h1>
+  <p class="step-subtitle">Get to know what this company actually does</p>
+
+  <div class="prose">
+    <p>Once you open a company profile on MarketLine, you'll find a structured overview of the organization. Read it closely — this is the material you'll draw on for the rest of the tutorial.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">What to look for on the profile page</div>
+    <ol class="num-list">
+      <li><span class="num" aria-hidden="true">1</span><div><strong>Company overview &amp; description:</strong> a professionally written summary of what the company does, where it operates, and its core business.</div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><strong>Key facts:</strong> employee count, annual revenue, and headquarters location. A company with 500 employees feels very different from one with 50,000 — size shapes culture and career paths.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><strong>Business segments &amp; products:</strong> most companies are divided into business units or product lines. If you want to work in a specific division, reference it by name in your application.</div></li>
+    </ol>
+  </div>
+
+  <div class="tip-box">
+    <span class="box-label">Career tip</span>
+    Pay attention to how MarketLine describes the company's core value proposition. If the description mentions "innovation" or "sustainability," those words are worth echoing (honestly) in your own materials later.
+  </div>
+
+  <div class="reflections">
+    <h3 class="reflections-heading">Reflection questions</h3>
+    <div class="q-block">
+      <label class="q-label" for="s2q0">1. In your own words, what does this company do? Explain it like you would to a friend, in 2–3 sentences.</label>
+      <p class="q-help">Use what you read in the MarketLine description, but rephrase it in your own voice.</p>
+      <textarea class="q-input" id="s2q0" data-qid="s2q0" rows="4"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="s2q1">2. What is the company's approximate size (employees and/or revenue), and where is it headquartered? What does that suggest about what it might be like to work there?</label>
+      <p class="q-help">Think about what it means to be employee #200 versus employee #20,000.</p>
+      <textarea class="q-input" id="s2q1" data-qid="s2q1" rows="4"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="s2q2">3. Which business segment or product area seems most relevant to the co-op role you're interested in?</label>
+      <p class="q-help">Look at the segment breakdown in the profile and name the one closest to your interests.</p>
+      <textarea class="q-input" id="s2q2" data-qid="s2q2" rows="3"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ======= STEP 3: WHAT THIS COMPANY WANTS ======= -->
+<section id="step-3" class="step-panel" aria-labelledby="s3-title" hidden>
+  <h2 class="sr-only">Step 3 — What is this company looking for?</h2>
+  <span class="step-icon" aria-hidden="true">🧭</span>
+  <h1 class="step-title" id="s3-title">What Is This Company Looking For?</h1>
+  <p class="step-subtitle">Turn your research into a list of in-demand skills</p>
+
+  <div class="prose">
+    <p>Every company profile hints at what it needs next. A growing business segment usually needs more people. A stated opportunity needs someone to chase it. An industry-wide trend needs someone who understands it. Reading between the lines here is what separates a strong co-op candidate from an average one.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Where to look for hiring clues</div>
+    <ol class="num-list">
+      <li><span class="num" aria-hidden="true">1</span><div><strong>SWOT tab → Opportunities:</strong> growth areas a company is investing in usually mean it's hiring for related skills.</div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><strong>Business segments:</strong> whichever segment is growing fastest is likely adding the most roles.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><strong>Industry tab → Key Trends:</strong> sector-wide trends (like AI adoption or new sustainability rules) point to skills that every company in that space wants.</div></li>
+    </ol>
+  </div>
+
+  <div class="clue-chain" role="img" aria-label="Path from company profile to opportunities and segments, to industry trends, to a list of in-demand skills">
+    <span class="chain-node">Company profile</span>
+    <span class="chain-arrow" aria-hidden="true">→</span>
+    <span class="chain-node">Opportunities &amp; segments</span>
+    <span class="chain-arrow" aria-hidden="true">→</span>
+    <span class="chain-node">Industry trends</span>
+    <span class="chain-arrow" aria-hidden="true">→</span>
+    <span class="chain-node">Skills in demand</span>
+  </div>
+
+  <div class="reflections">
+    <h3 class="reflections-heading">Reflection questions</h3>
+    <div class="q-block">
+      <label class="q-label" for="s3q0">1. Based on what you found (opportunities, segments, or industry trends), list 2–3 skills or areas of knowledge this company likely values in a co-op hire.</label>
+      <p class="q-help">Think about technical skills, domain knowledge, or analytical abilities implied by what you read.</p>
+      <textarea class="q-input" id="s3q0" data-qid="s3q0" rows="4"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="s3q1">2. Which of these do you already have, or are building through coursework, clubs, or past experience? Be specific.</label>
+      <p class="q-help">Name a class, project, club, or job — not just the skill itself.</p>
+      <textarea class="q-input" id="s3q1" data-qid="s3q1" rows="4"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ======= STEP 4: FIND A CO-OP ======= -->
+<section id="step-4" class="step-panel" aria-labelledby="s4-title" hidden>
+  <h2 class="sr-only">Step 4 — Finding a co-op position</h2>
+  <span class="step-icon" aria-hidden="true">💼</span>
+  <h1 class="step-title" id="s4-title">Find a Co-op Position</h1>
+  <p class="step-subtitle">Turn your research into an actual application</p>
+
+  <div class="prose">
+    <p>Now that you understand the company and what it's likely looking for, it's time to check whether they're currently recruiting Northeastern co-ops.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Where to search</div>
+    <ul class="checklist">
+      <li><span class="ch-icon" aria-hidden="true">🔎</span><div><a href="https://nuworks.northeastern.edu/" target="_blank" rel="noopener noreferrer">Search NUworks<span class="sr-only"> (opens in a new tab)</span></a> — Northeastern's co-op and job search platform. Search the company's name, or browse by industry or major, to see whether they're currently recruiting Northeastern co-ops.</div></li>
+      <li><span class="ch-icon" aria-hidden="true">🌐</span><div><strong>The company's own careers page:</strong> search "[Company name] careers" or "[Company name] students" or "early careers." Not every employer posts every opening to NUworks, especially smaller or newer co-op partners.</div></li>
+    </ul>
+  </div>
+
+  <div class="info-box">
+    <span class="box-label">Nothing posted right now?</span>
+    Co-op postings are seasonal. If you don't see an open role, note that below and name one comparable company or role you'd target instead — or plan to check back before the next co-op application deadline. Your co-op or career advisor can also help you find openings that aren't posted publicly.
+  </div>
+
+  <div class="reflections">
+    <h3 class="reflections-heading">Reflection questions</h3>
+    <div class="q-block">
+      <label class="q-label" for="s4q0">1. List any co-op positions you found for this company (title, plus where you found it — NUworks or the company's site). If none are posted right now, say so and name one comparable company or role instead.</label>
+      <p class="q-help">List as many as you find — you can compare them later.</p>
+      <textarea class="q-input" id="s4q0" data-qid="s4q0" rows="5"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="s4q1">2. Pick one skill you identified in the last step. Where does it show up (or not) in the co-op posting's requirements?</label>
+      <p class="q-help">If nothing is posted, imagine the skill list a similar posting would likely include.</p>
+      <textarea class="q-input" id="s4q1" data-qid="s4q1" rows="4"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- ======= STEP 5: SUMMARY ======= -->
+<section id="step-5" class="step-panel" aria-labelledby="s5-title" hidden>
+  <h2 class="sr-only">Step 5 — Your research summary</h2>
+  <span class="step-icon" aria-hidden="true">🗂️</span>
+  <h1 class="step-title" id="s5-title">Your Research Summary</h1>
+  <p class="step-subtitle">Everything you just found, in one place</p>
+
+  <div class="prose">
+    <p>Here's a clean recap of your research. Copy it into your notes, your resume draft, or your cover letter — or bring it with you to your next co-op advising appointment. You can also export it as a PDF to keep or share.</p>
+  </div>
+
+  <div class="no-print" style="margin-bottom:22px;">
+    <button type="button" class="access-btn" id="export-pdf-btn">
+      Export as PDF <span class="arrow" aria-hidden="true">⭳</span>
+    </button>
+    <p class="access-note">This opens your browser's print dialog — choose "Save as PDF" (or a PDF printer) as the destination.</p>
+  </div>
+
+  <div id="summary-container"></div>
+
+  <div class="success-box">
+    <span class="box-label">Next step</span>
+    Use this research to tailor your resume and cover letter, and revisit <a href="https://nuworks.northeastern.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--teal);font-weight:700;">NUworks<span class="sr-only"> (opens in a new tab)</span></a> regularly — new co-op postings go up throughout the recruiting cycle.
+  </div>
+</section>
+
+</main>
+
+<!-- ============ BOTTOM NAV ============ -->
+<nav class="nav-bar" aria-label="Tutorial navigation">
+  <div class="nav-inner">
+    <button type="button" class="nav-btn nav-secondary" id="prev-btn" disabled>← Back</button>
+    <div class="nav-center">
+      <div class="nav-step-num" id="nav-step-num">Step 1 of 6</div>
+      <div class="nav-step-name" id="nav-step-name">Welcome</div>
+    </div>
+    <button type="button" class="nav-btn nav-primary" id="next-btn">Begin Tutorial →</button>
+  </div>
+</nav>
+
+</div>
+
+<script>
+(function(){
+  const STEPS = [
+    {id:0, title:'Welcome', time:2, nextLabel:'Begin Tutorial →'},
+    {id:1, title:'Find Your Company', time:3, nextLabel:'Continue →'},
+    {id:2, title:'Company Profile', time:4, nextLabel:'Continue →'},
+    {id:3, title:'What They Want', time:4, nextLabel:'Continue →'},
+    {id:4, title:'Find a Co-op', time:4, nextLabel:'View My Summary →'},
+    {id:5, title:'Your Summary', time:2, nextLabel:'Restart Tutorial'}
+  ];
+
+  const QUESTIONS = {
+    s1q0: 'What company are you researching, and why does it interest you as a possible co-op employer?',
+    s1q1: 'What type of co-op role are you hoping to find there?',
+    s2q0: 'In your own words, what does this company do?',
+    s2q1: 'Company size, headquarters, and what that suggests about working there.',
+    s2q2: 'Most relevant business segment for your target role.',
+    s3q0: 'Skills or knowledge this company likely values in a co-op hire.',
+    s3q1: 'Which of these skills you already have or are building.',
+    s4q0: 'Co-op positions found (title + where found), or a comparable target.',
+    s4q1: 'How one identified skill shows up in a co-op posting.'
+  };
+
+  const SECTION_MAP = [
+    { title: 'Step 1 — Your Target Company', keys: ['s1q0','s1q1'] },
+    { title: 'Step 2 — Company Profile', keys: ['s2q0','s2q1','s2q2'] },
+    { title: 'Step 3 — What This Company Wants', keys: ['s3q0','s3q1'] },
+    { title: 'Step 4 — Co-op Search', keys: ['s4q0','s4q1'] }
+  ];
+
+  let current = 0;
+  const answers = {};
+
+  const panelEls = Array.from(document.querySelectorAll('.step-panel'));
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const progressFill = document.getElementById('progress-fill');
+  const progressWrapper = document.getElementById('progress-bar-wrapper');
+  const stepBadge = document.getElementById('step-badge');
+  const timeRemaining = document.getElementById('time-remaining');
+  const navStepNum = document.getElementById('nav-step-num');
+  const navStepName = document.getElementById('nav-step-name');
+  const mainEl = document.getElementById('main-content');
+
+  function totalTimeFrom(stepIdx){
+    return STEPS.slice(stepIdx).reduce(function(a,s){return a+s.time;},0);
+  }
+
+  function saveAnswers(){
+    const all = document.querySelectorAll('textarea[data-qid]');
+    all.forEach(function(ta){
+      answers[ta.dataset.qid] = ta.value.trim();
+    });
+  }
+
+  function restoreAnswers(){
+    const all = document.querySelectorAll('textarea[data-qid]');
+    all.forEach(function(ta){
+      if(answers[ta.dataset.qid] !== undefined){
+        ta.value = answers[ta.dataset.qid];
+      }
+    });
+  }
+
+  function buildSummary(){
+    const container = document.getElementById('summary-container');
+    if(!container) return;
+    let html = '';
+    SECTION_MAP.forEach(function(section){
+      html += '<div class="summary-section">';
+      html += '<div class="summary-hdr">' + escHtml(section.title) + '</div>';
+      section.keys.forEach(function(key){
+        const val = answers[key] || '';
+        const label = QUESTIONS[key] || key;
+        html += '<div class="summary-qa">';
+        html += '<div class="summary-q">' + escHtml(label) + '</div>';
+        if(val){
+          html += '<div class="summary-a">' + escHtml(val) + '</div>';
+        } else {
+          html += '<div class="summary-a summary-empty">No response recorded.</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  function escHtml(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updateHeader(){
+    const pct = current === 0 ? 0 : Math.round((current / (STEPS.length - 1)) * 100);
+    progressFill.style.width = pct + '%';
+    progressWrapper.setAttribute('aria-valuenow', pct);
+    const stepNum = current + 1;
+    const totalSteps = STEPS.length;
+    stepBadge.textContent = 'Step ' + stepNum + ' of ' + totalSteps;
+    const minLeft = totalTimeFrom(current);
+    timeRemaining.textContent = '~' + minLeft + ' min remaining';
+    navStepNum.textContent = 'Step ' + stepNum + ' of ' + totalSteps;
+    navStepName.textContent = STEPS[current].title;
+  }
+
+  function showStep(idx){
+    panelEls.forEach(function(el, i){
+      if(i === idx){
+        el.removeAttribute('hidden');
+      } else {
+        el.setAttribute('hidden','');
+      }
+    });
+    // Move focus to main heading for screen readers
+    const heading = panelEls[idx].querySelector('h1') || mainEl;
+    heading.setAttribute('tabindex','-1');
+    heading.focus();
+
+    prevBtn.disabled = idx === 0;
+    if(idx === STEPS.length - 1){
+      nextBtn.textContent = 'Restart Tutorial';
+      nextBtn.setAttribute('aria-label','Restart the tutorial from the beginning');
+    } else {
+      nextBtn.textContent = STEPS[idx].nextLabel || 'Continue →';
+      nextBtn.setAttribute('aria-label','Continue to next step');
+    }
+
+    updateHeader();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  nextBtn.addEventListener('click', function(){
+    saveAnswers();
+    if(current === STEPS.length - 1){
+      // Restart
+      Object.keys(answers).forEach(function(k){ delete answers[k]; });
+      document.querySelectorAll('textarea[data-qid]').forEach(function(ta){ ta.value=''; });
+      current = 0;
+      showStep(0);
+      return;
+    }
+    current++;
+    if(current === STEPS.length - 1){
+      buildSummary();
+    }
+    showStep(current);
+  });
+
+  prevBtn.addEventListener('click', function(){
+    saveAnswers();
+    if(current > 0){
+      current--;
+      showStep(current);
+      restoreAnswers();
+    }
+  });
+
+  const exportBtn = document.getElementById('export-pdf-btn');
+  if(exportBtn){
+    exportBtn.addEventListener('click', function(){
+      window.print();
+    });
+  }
+
+  // Initialize
+  showStep(0);
+  updateHeader();
+
+  // Preserve answers when navigating via browser back (in single-page context)
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden){ restoreAnswers(); }
+  });
+
+})();
+</script>
+</body>
+</html>
